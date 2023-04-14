@@ -1,0 +1,72 @@
+<Script>
+    let posts = document.getElementsByClassName("fusion-post-cards")[0].getElementsByTagName("ul")[1].getElementsByTagName("li");
+    document.getElementById("notfound").style.display = "none";
+    let textarr = [];
+    let texts = [];
+    for(let i = 0; i < posts.length; i++){
+        for(let j = 0; j < 5; j++){
+            texts.push(clean(posts[i].getElementsByTagName("p")[j].innerText));
+        }
+      for(let j = 0; j < posts[i].classList.length; j++){
+            let cl = posts[i].classList[j];
+            switch (true){
+                case  cl.includes("fusion") || cl.includes("post"):
+                    break;
+                default:
+                  texts.push(clean(cl));
+            }
+        }
+        textarr.push(texts);
+        texts = [];
+    }
+
+    function filter(){
+        let fields = document.getElementById("filter").getElementsByClassName("fusion-form-input");
+        let input = [];
+        for(let i = 0; i < fields.length; i++){
+            let add = clean(fields[i].value).split(/[, ]+/);
+            input = input.concat(add);
+        }
+        let num = 0;
+        for(let i = 0; i < posts.length; i++){
+            if(check(textarr[i], input) !== 0){
+                posts[i].style.display = "none";
+            }else{
+                posts[i].style.display = "block";
+              num++;
+            }
+        }
+        if(num !== 0){
+            document.getElementById("notfound").style.display = "none";
+        }else{
+            document.getElementById("notfound").style.display = "block";
+        }
+    }
+
+    function clean(str){
+        return(str.toLowerCase().replace(/[:.]/g, ""))
+    }
+	 
+    function check(arr, inp){
+        let num = 0;
+        for(let i = 0; i < inp.length; i++){
+            if(arr.filter(text => text.includes(inp[i])).length == 0){
+                num++;
+            }
+        }
+        return(num);
+    }
+   
+    fields = document.getElementById("filter").getElementsByClassName("fusion-form-input");
+    for(let i = 0; i < fields.length; i++){
+        fields[i].addEventListener("keyup", filter);
+        fields[i].addEventListener("change", filter);
+    }
+
+    let forms = document.getElementsByTagName("form");
+    for(let i = 0; i < forms.length; i++){
+        forms[i].addEventListener('submit', function(event) {
+            event.preventDefault(event);
+        });
+    }
+</Script>
