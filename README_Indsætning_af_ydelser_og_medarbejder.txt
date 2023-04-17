@@ -20,4 +20,13 @@ Indsætning af ny medarbejder
 	   Indtast også deres kontor sted her.
 	5. Nedenunder, under 'steder', indtast i boksen medarbejderens kontor sted.
 	6. Under ‘initialer’ indtast medarbejderens initialer.
-	7. Til sidst, klik på ‘Udgiv’.
+	7. Klik på ‘Udgiv’.
+... Hvis medarbejderen er en directør / partner / forretningsleder / teamleder eller har anden vigtig stilling så gør det følgene:
+	8. Klik på wordpress 'W' oppe i vestre hjørne for at komme tilbage og find medarbjderen på listen. hold over dem og tryk 'lynrediger'.
+	9. I 'korttitle' indtast forand navnet enten:
+		00 - hvis de er en direktør
+		01 - partner / forretningsleder
+		02 - ?
+		03 - teamleder / projektleder
+	10. tryk 'Opdater'.
+	
