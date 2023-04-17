@@ -9,31 +9,33 @@
 
 
 <Script defer>
-    const liste = document.getElementById("liste");
+
+    // får fat i alle de ting på siden koden har brug for
+    const liste = document.getElementById("liste"); //liste id’en er på containeren som alt ligger i, både input felterne og listen af ydelser
     const boxes = liste.getElementsByClassName("fusion-text");
-    const posts = liste.getElementsByTagName("li");
+    const posts = liste.getElementsByTagName("li"); //de individuelle ydelser
 	const alpha = document.getElementById("alpha");
     const buttons = alpha.getElementsByTagName("span");
     const butlinks = alpha.getElementsByTagName("a");
     const fields = document.getElementsByClassName("fusion-form-input");
 	const forms = document.getElementsByTagName("form");
     
-    let textarr = [...posts].map(post => [...post.classList, post.innerText].map(clean))
+    let textarr = [...posts].map(post => [...post.classList, post.innerText].map(clean)) //textarr bliver erklæret som en array der indeholder arrays med alle classer og teksten på ever ydelse
 
     alphacheck();
 
-    function filter(){
-        for(const box of boxes){
+    function filter(){ //funktionen der tager brugerens input og viser de ydelser der matcher dem eller har matchende søgeord (classer)
+        for(const box of boxes){ //alt bliver skjult
             box.style.display = "none";
         }
       
         let input = [];
-        for(let field of fields){
+        for(let field of fields){ //brugerens input bliver indsamlet fra hvert input felt og samles til en array
             let add = clean(field.value).split(/[, ]+/);
             input = input.concat(add);
         }
       
-        for(let i = 0, l = posts.length; i < l; i++){
+        for(let i = 0, l = posts.length; i < l; i++){ //hver ydelse bliver tjekket på mod brugerens input bliver enten vist eller skjult
             if(check(textarr[i], input) !== 0){
                 posts[i].style.display = "none";
             }else{
@@ -44,13 +46,13 @@
         alphacheck();
     }
 
-function alphacheck(){
-    for(const button of buttons){
+function alphacheck(){ //funktionen der gør at brugeren kunne kan klikke på de alphabet knapper som har en synlig alphabet sektion
+    for(const button of buttons){ //alle knapper bliver deaktiveret
         button.style.color = "#0033664D"
         button.parentElement.style.pointerEvents = "none";
     } 
   
-    for(const box of boxes){
+    for(const box of boxes){ //der bliver tjekket hvilke sektioner der bliver vist ud fra de aktiveres de korresponderende knapper
         if(getComputedStyle(box).getPropertyValue("display") == "block"){
             const letter = box.innerText.charAt(0).toLowerCase().charCodeAt(0) - 96;
             if(letter < 1){
@@ -64,11 +66,11 @@ function alphacheck(){
         }
     }
 
-    function clean(str){
-        return(str.toLowerCase().replace(/[/:.]/g, ""));
+    function clean(str){ //funktionen der sørger for at tekst koden skal håndtere er i den rigtige format
+        return(str.toLowerCase().replace(/[/:.]/g, "").replace(/å/g, "aa").replace(/æ/g, "ae").replace(/ø/g, "oe")); //æ ø å bliver ændret ae oe aa for at undgå kompatibilitets fejl
     }
 
-    function check(arr, inps){
+    function check(arr, inps){ //funktionen der tager in array fra en ydelse og en array med brugerens input og tjekker hvor mange ord der matcher og returnere det tal
         let num = 0;
         for(const inp of inps){
             if(arr.filter(text => text.includes(inp)).length == 0){
@@ -78,24 +80,28 @@ function alphacheck(){
         return(num);
     }
 
+    function highlight() { //funktionen der highlighter den sektion brugeren scroller ned til når de klikker på alphabet knapperne
+        const input = ("filter" + (this.innerText).replace(/#/g, "num")).toLowerCase();
+        const list = document.getElementById(input).nextSibling;
+        list.style.backgroundColor = "#8fd0d6";
+        setTimeout(function endhigh() { //en timer bliver sat til at fjerne highlighten igen
+            list.style.backgroundColor = "rgba(255, 255, 255, 0)";
+        }, 1000);
+    }
+
+
+    //her placeres EventListener på hvert input felt
     for(const field of fields){
         field.addEventListener("keyup", filter);
         field.addEventListener("change", filter);
     }
 
-    function highlight() {
-        const input = ("filter" + (this.innerText).replace(/#/g, "num")).toLowerCase();
-        const list = document.getElementById(input).nextSibling;
-        list.style.backgroundColor = "#8fd0d6";
-        setTimeout(function endhigh() {
-            list.style.backgroundColor = "rgba(255, 255, 255, 0)";
-        }, 1000);
-    }
-
+    //her placeres EventListener på hvert hver alphabet knap
     for(const but of butlinks){
         but.addEventListener("click", highlight);
     }
 
+    //den sidste del stopper formen i at genlæse siden når brugeren trykker 'enter'
     for(const form of forms){
         form.addEventListener('submit', function(event) {
             event.preventDefault();
