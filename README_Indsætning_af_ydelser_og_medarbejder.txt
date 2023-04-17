@@ -24,9 +24,9 @@ Indsætning af ny medarbejder
 ... Hvis medarbejderen er en directør / partner / forretningsleder / teamleder eller har anden vigtig stilling så gør det følgene:
 	8. Klik på wordpress 'W' oppe i vestre hjørne for at komme tilbage og find medarbjderen på listen. hold over dem og tryk 'lynrediger'.
 	9. I 'korttitle' indtast forand navnet enten:
-		00 - hvis de er en direktør
-		01 - partner / forretningsleder
-		02 - ?
-		03 - teamleder / projektleder
+		00- hvis de er en direktør
+		01- partner / forretningsleder
+		02- ?
+		03- teamleder / projektleder
 	10. tryk 'Opdater'.
 	
