@@ -80,7 +80,7 @@ function alphacheck(){ //funktionen der gør at brugeren kunne kan klikke på de
         return(num);
     }
 
-    function highlight() { //funktionen der highlighter den sektion brugeren scroller ned til når de klikker på alphabet knapperne
+    function highlight() { //funktionen der highlighter den sektion brugeren scroller ned til når de klikker på alfabet knapperne
         const input = ("filter" + (this.innerText).replace(/#/g, "num")).toLowerCase();
         const list = document.getElementById(input).nextSibling;
         list.style.backgroundColor = "#8fd0d6";
@@ -96,7 +96,7 @@ function alphacheck(){ //funktionen der gør at brugeren kunne kan klikke på de
         field.addEventListener("change", filter);
     }
 
-    //her placeres EventListener på hvert hver alphabet knap
+    //her placeres EventListener på hvert hver alfabet knap
     for(const but of butlinks){
         but.addEventListener("click", highlight);
     }
