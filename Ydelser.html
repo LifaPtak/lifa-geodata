@@ -48,7 +48,7 @@
 
 function alphacheck(){ //funktionen der gør at brugeren kunne kan klikke på de alphabet knapper som har en synlig alphabet sektion
     for(const button of buttons){ //alle knapper bliver deaktiveret
-        button.style.color = "#0033664D"
+        button.style.color = "#0033664D" //LIFA blå, alpha 0,3
         button.parentElement.style.pointerEvents = "none";
     } 
   
@@ -56,10 +56,10 @@ function alphacheck(){ //funktionen der gør at brugeren kunne kan klikke på de
         if(getComputedStyle(box).getPropertyValue("display") == "block"){
             const letter = box.innerText.charAt(0).toLowerCase().charCodeAt(0) - 96;
             if(letter < 1){
-                    buttons[0].style.color = "#003366"
+                    buttons[0].style.color = "#003366" //farve: LIFA blå
                     buttons[0].parentElement.style.pointerEvents = "auto"
                 }else{
-                    buttons[letter].style.color = "#003366"
+                    buttons[letter].style.color = "#003366" //farve: LIFA blå
                     buttons[letter].parentElement.style.pointerEvents = "auto"
                 }
             }
@@ -83,9 +83,9 @@ function alphacheck(){ //funktionen der gør at brugeren kunne kan klikke på de
     function highlight() { //funktionen der highlighter den sektion brugeren scroller ned til når de klikker på alfabet knapperne
         const input = ("filter" + (this.innerText).replace(/#/g, "num")).toLowerCase();
         const list = document.getElementById(input).nextSibling;
-        list.style.backgroundColor = "#8fd0d6";
+        list.style.backgroundColor = "#8fd0d6"; //farve: Accent sekundær
         setTimeout(function endhigh() { //en timer bliver sat til at fjerne highlighten igen
-            list.style.backgroundColor = "rgba(255, 255, 255, 0)";
+            list.style.backgroundColor = "rgba(255, 255, 255, 0)"; //farve: gennemsigtig
         }, 1000);
     }
 
