@@ -1,4 +1,8 @@
-<Script>
+<Script defer>
+    if(window.frameElement != null){ //denne forhendre koden af køre i Avada live editoren
+        throw new Error('This is not an error. This is just to abort javascript');
+    }
+
     let posts = document.getElementsByClassName("fusion-post-cards")[0].getElementsByTagName("ul")[1].getElementsByTagName("li"); //her få koden fadt i alle de individuelle medarbejder posts
     document.getElementById("notfound").style.display = "none";
     let textarr = [];

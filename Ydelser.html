@@ -9,6 +9,9 @@
 
 
 <Script defer>
+    if(window.frameElement != null){ //denne forhendre koden af køre i Avada live editoren
+        throw new Error('This is not an error. This is just to abort javascript');
+    }
 
     // får fat i alle de ting på siden koden har brug for
     const liste = document.getElementById("liste"); //liste id’en er på containeren som alt ligger i, både input felterne og listen af ydelser
