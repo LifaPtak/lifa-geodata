@@ -8,7 +8,7 @@
     let forms = document.getElementsByTagName("form");
     let notfound = document.getElementById("notfound");
     
-    document.getElementById("notfound").style.display = "none";
+    notfound.style.display = "none";
 
     let textarr = [...posts].map(post => [...post.classList, post.innerText].map(clean))
 
