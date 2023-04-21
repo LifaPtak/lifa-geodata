@@ -4,31 +4,18 @@
     }
 
     let posts = document.getElementsByClassName("fusion-post-cards")[0].getElementsByTagName("ul")[1].getElementsByTagName("li"); //her få koden fadt i alle de individuelle medarbejder posts
+    let fields = document.getElementById("filter").getElementsByClassName("fusion-form-input");
+    let forms = document.getElementsByTagName("form");
+    let notfound = document.getElementById("notfound");
+    
     document.getElementById("notfound").style.display = "none";
-    let textarr = [];
-    let texts = [];
-    for(let i = 0; i < posts.length; i++){ //koden laver en array for hver medarbejder der bliver til sidst bliver samlet i en stor array af arrays
-        for(let j = 0; j < 5; j++){
-            texts.push(clean(posts[i].getElementsByTagName("p")[j].innerText)); //alt tekst bliver lagt ind i arrayet
-        }
-      for(let j = 0; j < posts[i].classList.length; j++){ //alle classer bliver lagt ind i arrayet
-            let cl = posts[i].classList[j];
-            switch (true){
-                case  cl.includes("fusion") || cl.includes("post"):
-                    break;
-                default:
-                  texts.push(clean(cl));
-            }
-        }
-        textarr.push(texts); //arrayet bliver langt ind i den store array af arrays
-        texts = [];
-    }
+
+    let textarr = [...posts].map(post => [...post.classList, post.innerText].map(clean))
 
     function filter(){ //funktionen der tager brugerens input og viser de medarbejder med matchende søgeord
-        let fields = document.getElementById("filter").getElementsByClassName("fusion-form-input");
         let input = [];
-        for(let i = 0; i < fields.length; i++){ //brugerens input bliver samlet til en array
-            let add = clean(fields[i].value).split(/[, ]+/);
+        for(field of fields){ //brugerens input bliver samlet til en array
+            let add = clean(field.value).split(/[, ]+/);
             input = input.concat(add);
         }
         let num = 0;
@@ -41,9 +28,9 @@
             }
         }
         if(num !== 0){ //hvis ingen bliver vist vises "fandt intet" beskeden
-            document.getElementById("notfound").style.display = "none";
+            notfound.style.display = "none";
         }else{
-            document.getElementById("notfound").style.display = "block";
+            notfound.style.display = "block";
         }
     }
 
@@ -62,14 +49,14 @@
     }
    
     //her placeres EventListener på hvert input felt
-    fields = document.getElementById("filter").getElementsByClassName("fusion-form-input");
-    for(let i = 0; i < fields.length; i++){
-        fields[i].addEventListener("keyup", filter);
-        fields[i].addEventListener("change", filter);
+    
+    for(const field of fields){
+        field.addEventListener("keyup", filter);
+        field.addEventListener("change", filter);
     }
     
     //den sidste del stopper formen i at genlæse siden når brugeren trykker 'enter'
-    let forms = document.getElementsByTagName("form");
+    
     for(const form of forms){
         form.addEventListener('submit', function(event) {
             event.preventDefault();
